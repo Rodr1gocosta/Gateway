@@ -35,6 +35,10 @@ public class WebConfigurer implements WebFluxConfigurer {
     public CorsWebFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = jHipsterProperties.getCors();
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedMethod("*"); // Permite todos os métodos HTTP
+        config.addAllowedHeader("*"); // Permite todos os cabeçalhos
+
         if (!CollectionUtils.isEmpty(config.getAllowedOrigins()) || !CollectionUtils.isEmpty(config.getAllowedOriginPatterns())) {
             log.debug("Registering CORS filter");
             source.registerCorsConfiguration("/api/**", config);
